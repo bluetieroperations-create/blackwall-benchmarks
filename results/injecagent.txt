@@ -1,0 +1,7 @@
+InjecAgent — BLACK_WALL gate vs raw-Haiku baseline (adaptation; DS-stripped floor)
+Reference run: REPS=3 majority vote, against the LIVE deployed gate (blackwalltier.com), 2026-06-12.
+                  DH catch     DS catch (stripped)   over-block (↓better)
+BLACK_WALL GATE : 16/16        14/14                 0/12
+RAW HAIKU       : 16/16        14/14                 1/12
+Honest read: catch TIES the bare model (16/16 = 16/16); the gate's edge is precision (over-block 0 vs raw 1) + reproducibility + signed receipts — NOT detection.
+Reproducibility: the gate arm is LLM-backed -> nondeterministic; numbers reproduce within vote-margin, not bit-exact. The raw baseline's over-block varies run-to-run (1-2/12).

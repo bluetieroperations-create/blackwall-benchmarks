@@ -1,0 +1,22 @@
+{
+  "name": "blackwall-benchmarks",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Public, reproducible benchmarks for the Black_Wall pre-action gate. Run them yourself against the live production API.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "injecagent": "tsx benchmarks/injecagent/run.ts",
+    "injecagent:dry": "tsx benchmarks/injecagent/run.ts --dry-run",
+    "agentdojo": "tsx benchmarks/agentdojo/run.ts",
+    "agentdojo:dry": "tsx benchmarks/agentdojo/run.ts --dry-run",
+    "all": "npm run injecagent && npm run agentdojo"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
+    "tsx": "^4.19.2"
+  }
+}
