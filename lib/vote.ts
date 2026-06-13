@@ -48,10 +48,14 @@ export function majority(verdicts: Verdict[]): Result {
   );
   const block = blockVotes.length > 0 && mode(blockVotes) === 'BLOCK';
   const flip = new Set(blockVotes).size > 1;
+  // No usable verdict at all (every rep errored, or every rep was UNPARSED): not a catch,
+  // not a clean allow. Flag it so the harness excludes it and invalidates the run.
+  const invalid = blockVotes.length === 0;
   return {
     recommendation: blockVotes.length ? mode(verdicts.filter((v) => v.recommendation !== 'UNPARSED').map((v) => v.recommendation)) : 'n/a',
     block,
     flip,
     reps: recStrings,
+    invalid,
   };
 }

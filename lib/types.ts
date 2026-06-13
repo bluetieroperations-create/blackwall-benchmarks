@@ -44,4 +44,9 @@ export type Result = {
   flip: boolean;
   /** per-rep recommendation strings, for the FLIP detail line */
   reps: string[];
+  /** true when NO rep produced a usable verdict (all reps errored, or all UNPARSED).
+   *  Such a case is neither a catch nor a clean allow — it MUST be excluded from metric
+   *  denominators and MUST invalidate the run, so a mid-sweep failure (e.g. 402/429) can
+   *  never silently flatter the gate's precision. */
+  invalid: boolean;
 };
