@@ -1,0 +1,15 @@
+# gitleaks config for the public blackwall-benchmarks repo.
+# Keeps the default rule set, and allowlists the intentional adversarial *fixture*
+# tokens in the Caltrop forgery battery — high-entropy junk strings (e.g. base64 for
+# "forged-not-a-token" / "cafebabe.deadbeef"), NOT secrets. Real secrets live only in
+# the gitignored .env and must never be committed.
+title = "blackwall-benchmarks"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Intentional adversarial fixtures in the Caltrop forgery battery — not secrets."
+paths = [
+  '''benchmarks/caltrop/cases\.ts''',
+]

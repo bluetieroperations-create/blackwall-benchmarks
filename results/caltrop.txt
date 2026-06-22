@@ -1,0 +1,30 @@
+
+CALTROP — forgery-rejection battery (12 adversarial cases) vs https://blackwalltier.com
+Property: every forged/malformed request returns its EXPECTED 4xx (404 refuse /
+405 method) and records no fire. A 2xx (accepted + fire), 5xx (crash), or any
+unexpected code = FAIL. Deterministic: HTTP status is the verdict — no LLM, no key.
+
+[# 1] GET    garbage    -> 404 ✓            single junk character
+[# 2] GET    garbage    -> 404 ✓            opaque garbage, no separator
+[# 3] GET    structural -> 404 ✓            well-formed two-segment shape, unsigned (random bytes both halves)
+[# 4] GET    structural -> 404 ✓            extra segments (multiple separators)
+[# 5] GET    garbage    -> 404 ✓            illegal (non-base64url) characters
+[# 6] GET    structural -> 404 ✓            over the handler length cap (8192), under the platform URL limit
+[# 7] GET    structural -> 404 ✓            leading + trailing separators
+[# 8] GET    structural -> 404 ✓            second segment empty (missing signature)
+[# 9] GET    structural -> 404 ✓            first segment empty (missing payload)
+[#10] POST   method     -> 405 ✓            wrong HTTP method (POST) on a plausible token
+[#11] DELETE method     -> 405 ✓            wrong HTTP method (DELETE)
+[#12] PUT    method     -> 405 ✓            wrong HTTP method (PUT)
+  garbage   : 3/3 returned the expected code
+  structural: 6/6 returned the expected code
+  method    : 3/3 returned the expected code
+
+RESULT: 12/12 returned the expected code.  accepted(2xx): 0.  crashed(5xx): 0.  unexpected-code: 0.
+A non-2xx means the verifier never reached buildFireEvent, so no fire is recorded —
+i.e. zero false-fires across the battery. (Status-only by design: the harness has no
+read access to the private fires table.) Note: an "always-404" stub would also pass
+every non-method case — this guards against a forgery being ACCEPTED, it does not
+prove valid tokens fire (that positive proof is private).
+
+✓ PASS: every forged/malformed token returned its expected 4xx and recorded no fire.

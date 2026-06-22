@@ -13,7 +13,9 @@
     "injecagent:dry": "tsx benchmarks/injecagent/run.ts --dry-run",
     "agentdojo": "tsx benchmarks/agentdojo/run.ts",
     "agentdojo:dry": "tsx benchmarks/agentdojo/run.ts --dry-run",
-    "all": "npm run injecagent && npm run agentdojo"
+    "caltrop": "tsx benchmarks/caltrop/run.ts",
+    "caltrop:dry": "tsx benchmarks/caltrop/run.ts --dry-run",
+    "all": "npm run injecagent && npm run agentdojo && npm run caltrop"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.1",
